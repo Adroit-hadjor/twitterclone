@@ -1,0 +1,53 @@
+.topics_to_follow{
+   // border-bottom:1px solid grey;
+    display: flex;
+    justify-content: space-between;
+    padding:10px  ;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+
+}
+
+.topics{
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.minitab{
+   // border:1px solid blueviolet;
+  
+   border-radius: 15px;
+    width: 80%;
+    margin-right:39px;
+    background-color: rgb(25, 39, 52);
+    margin-top: 10px;
+
+    &_follow{
+        border-radius: 15px;
+        width: 80%;
+        margin-right:39px;
+        background-color: rgb(25, 39, 52);
+        margin-top: 40px;
+    }
+}
+
+.tab{
+    border-top:1px solid rgb(56, 68, 77);;
+    display: flex;
+    justify-content: space-between;
+    padding:10px;
+    &_left{
+
+    }
+}
+
+.trending_text{
+    color:rgb(136, 153, 166);;
+    font-size: 14px;
+}
+
+.number_of_tweets_text{
+    color: rgb(136, 153, 166);;
+    font-size: 14px;
+
+}
