@@ -15,6 +15,8 @@
 .middle{
   padding:0px !important;
   overflow-y: scroll;
+  flex: 0 0 41.666667%;
+  max-width: 41.666667%;
   &::-webkit-scrollbar {
     width: 0;  /* Remove scrollbar space */
     background: transparent;  /* Optional: just make scrollbar invisible */
@@ -304,6 +306,57 @@ margin-right:30%;
     height: auto;
     padding:0px 10px 10px 0px;
     
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape){
+
+}
+
+@media (min-width: 481px) and (max-width: 767px){
+  // .lefttabmobile {
+  //   background: yellow;
+  //   display: none;
+  // }
+}
+
+@media (min-width: 320px) and (max-width: 480px){
+  .lefttabmobile, .whats_happening_text_area, .righttabmobile, .icon_with_tweet{
+    visibility: hidden;
+  }
+  .header {
+    display: none;
+  }
+  .midtab {
+    flex: 100% 0 41.666667%;
+    max-width: 100%;
+    border: none;
+  }
+  .upper {
+    width: 90px;
+  }
+  .wh_text_input, .upper {
+    min-height: none;
+    width: none;
+    padding: none;
+  }
+  .lefttabmobile {
+    display: none;
+  }
+
+  .wh_text_input {
+    height: none !important;
+  }
+  .middle {
+    &::-webkit-scrollbar-thumb {
+      background: none !important;
+  }
+  }
+  .whats_happening {
+    border: 1px solid grey;
+  }
+  .row {
+    border: 1px solid grey;
   }
 }
 
