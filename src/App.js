@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react'
+import React, { useState, useEffect } from 'react';
 import logo from './logo.svg';
 import './App.scss';
 import { Row, Col ,Container,Button} from 'reactstrap';
@@ -11,8 +11,8 @@ import LeftColumn from './components/leftColumn'
 import RightColumn from './components/rightColumn'
 import MiddleColumn from './components/middleColumn'
 function App() {
-  const [icon_color,seticon_color] = useState("grey")
-  const [focus,setFocus] = useState(false)
+	const [ icon_color, seticon_color ] = useState('grey');
+	const [ focus, setFocus ] = useState(false);
 
   return (
    
