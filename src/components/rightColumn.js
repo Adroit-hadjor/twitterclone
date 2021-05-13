@@ -162,49 +162,7 @@ function RightColumn() {
 
 
 
-           <div className="minitab_follow" > 
-          <div className="topics_to_follow">
-            <div className="topics">
-            Topics To follow
-              </div>
-              <div>
-              <AiOutlineSetting color={"rgb(29, 161, 242)"} style={{marginRight:"10px"}}size={23}/>
-              </div>
-            </div>
-            <div className="tab">
-            <div className="tab_lef" >
-              <div>
-                ligue1.trending
-              </div>
-              <div>
-              lille
-                </div>
-             
-              <div>
-              20.8k tweets
-              </div>
-            </div>
-            <div className="tab_right">
-              follow
-            </div>
-            </div>
-            <div className="tab">
-            <div className="tab_lef" >
-              <div>
-              Android
-                </div>
-             
-              <div>
-              tech brand
-              </div>
-            </div>
-            <div className="tab_right">
-              follow
-            </div>
-            </div>
-           
-           
-           </div>
+          
       
        </div>
 

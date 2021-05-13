@@ -40,12 +40,7 @@ height: 100vh;
   height: 100vh;
   width: 60%;
   overflow-y: scroll;
-<<<<<<< HEAD
 height: 100vh;
-=======
-  flex: 0 0 41.666667%;
-  max-width: 41.666667%;
->>>>>>> bf8f5d15451eb08a6687cb98ecca4268b82de7f2
   &::-webkit-scrollbar {
     width: 0;  /* Remove scrollbar space */
     background: transparent;  /* Optional: just make scrollbar invisible */
@@ -302,8 +297,8 @@ margin-right:30%;
 
  &_icon{
     position: absolute;
-    top:25px;
-    right:360px;
+    top:18px;
+    right:330px;
     color:grey;
     z-index: 10000;
  }
@@ -344,6 +339,7 @@ margin-right:30%;
    // border:1px solid white;
     height: auto;
     padding:0px 10px 10px 0px;
+    position: relative;
     
   }
 }
