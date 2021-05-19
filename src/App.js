@@ -10,22 +10,49 @@ import DATA from "./api/tweets";
 import LeftColumn from './components/leftColumn'
 import RightColumn from './components/rightColumn'
 import MiddleColumn from './components/middleColumn'
+import QuotedReplies from './pages/QuotedReplies'
+import {BrowserRouter as Router,Switch,Route } from 'react-router-dom';
+import Main from './pages/Main'
+import OpenedTweet from './pages/OpenedTweet';
 function App() {
 	const [ icon_color, seticon_color ] = useState('grey');
 	const [ focus, setFocus ] = useState(false);
 
   return (
    
-      <Container style={{backgroundColor:"#15202B",color:"white"}} fluid>
-     <Row  className="columnContainer">
-        <LeftColumn/>
-        <Col xs="9" className="big_middle">
-        <MiddleColumn/>
-        <RightColumn/>
-        </Col>
-       
-     </Row>
-     </Container>
+   <Router >
+   
+   <Switch>
+           
+         
+            <Route
+             exact 
+             path={"/"}
+           
+             >
+             {<Main />}
+              </Route>
+              
+              <Route
+          
+             path={"/tweet" }
+             component={<OpenedTweet />}
+             >
+             {<OpenedTweet />}
+              </Route>
+
+              <Route
+          
+          path={"/quotes" }
+          component={<QuotedReplies />}
+          >
+          {<QuotedReplies />}
+           </Route>
+
+             
+           </Switch>
+     
+           </Router>
  
   );
 }

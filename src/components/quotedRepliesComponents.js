@@ -6,41 +6,66 @@ import {GrImage} from 'react-icons/gr';
 import {useHistory} from 'react-router-dom';
 import {BsThreeDots} from 'react-icons/bs'
 import{AiOutlineSetting} from 'react-icons/ai'
-import DATA from "../api/tweets";
+import Quoted from "../api/quotedReplies";
+import Images from "../api/image_quotes"
 import {ImageTweets} from "./imageTweet"
 import { render } from '@testing-library/react';
-function MiddleColumn() {
+function QuotedRepliesComponents() {
+  const [icon_color,seticon_color] = useState("grey")
   const [icon_color_1,seticon_color_1] = useState("white")
   const [icon_color_3,seticon_color_3] = useState("white")
   const [icon_color_4,seticon_color_4] = useState("white")
-  const [icon_color,seticon_color] = useState("grey")
   const [focus,setFocus] = useState(false)
+  const [cat,setCat]= useState("top");
+  const [dat,setDat]=useState([])
   const history = useHistory();
- const setTweet =(tweet)=>{
+  const [count,setCount]= useState(0);
+  const [tweett,setTweet] = useState({})
+  const [user,setUser]=useState({})
+  const [images,setImages]= useState([])
+
+  useEffect(()=>{
    
-   const tweetStored = JSON.stringify(tweet);
-   localStorage.setItem("tweet",tweetStored)
-   history.push("/tweet");
- }
+    const d = localStorage.getItem("tweet")
+    const tweeet = JSON.parse(d)
+    if(d){
+     
+    setTweet(tweeet)
+    setUser(tweeet.user)
+    setImages(tweeet.images)
+
+    if(cat=="photos"){
+      setDat(Images)
+    }
+    else if(cat=="videos"){
+      setDat([])
+    }
+    else{
+      setDat(Quoted)
+    }
+
+    }
+    else{
+      history.push("/")
+    }
+   
+   },[cat])
+
+
+
+ 
+
+
 
   return (
    
      
    
        <div className="columns middle">
-        <div className="header ">
-          Home
-        </div>
-        <div className="middle_body">
-          <div className="mobile_home_bar">Home</div>
-          <div className="mobile_create_tweet"> 
-           <div className="tweet_sign_left">
-            <svg width="25" height="40" viewBox="0 0 50 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M18.3333 12H11.6667V6.50001C11.6667 5.83334 11.0417 5.16667 10 5.16667C8.95833 5.16667 8.54167 5.83334 8.54167 6.50001V12H1.66667C0.833333 12 0 12.5 0 13.3333C0 14.1667 0.625 14.6667 1.66667 14.6667H8.54167V20.1667C8.54167 20.8333 9.16667 21.5 10.2083 21.5C11.25 21.5 11.875 21 11.875 20.1667V14.5H18.75C19.5833 14.5 20.4167 14 20.4167 13.1667C20.4167 12.3333 19.375 12 18.3333 12V12ZM49.5833 3.83334V3.66667H49.375C49.1667 3.66667 30.2083 5.66667 19.375 23.1667C11.4583 35.8333 11.875 39.6667 12.5 39.6667C13.125 39.8333 19.5833 28.8333 26.4583 24.3333C37.2917 22.5 40.2083 18.3333 40.2083 18.3333C40.2083 18.3333 37.0833 18.6667 35.8333 18.6667C34.1667 18.6667 32.9167 18.3333 32.2917 18.1667C35 16.1667 37.2917 15.6667 39.5833 15.3333C41.4583 15 43.3333 14.6667 45.8333 13.3333C50.4167 10.6667 49.7917 4.16667 49.5833 3.83334V3.83334Z" fill="white"/>
-            </svg>
-            </div>
-            </div>
-          <div className="mobile_bottom_nav">
+       
+        <div className="middle_body quo">
+        <div className="mobile_home_bar">Quote Tweets</div>
+        <div className="mobile_bottom_nav">
           
           <div style={{height:"auto"}}>
               <svg width="25" height="25" id="home" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -70,93 +95,43 @@ function MiddleColumn() {
           </div>
 
           </div>
-        <div className="whats_happening">
-          <div className="half upper">
-           <img src={'https://pbs.twimg.com/profile_images/1258864613585813505/EkLbcHbk_400x400.jpg'} className="wh_avi" />
-           
-           <div className="wh_text_input">
-             <div>
-             <div  onFocus={()=>setFocus(true)}  onBlur={()=>setFocus(false)} data-placeholder="What's happening ?" contentEditable className="whats_happening_text_area" name="" id="" />
-               </div> 
-             { 
-             
-              focus ?
-              <div  className="can_reply_container">
-              <svg width="23" height="21" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-             <path d="M22 2.75C11.3667 2.75 2.75 11.3667 2.75 22C2.75 32.6333 11.3667 41.25 22 41.25C32.6333 41.25 41.25 32.6333 41.25 22C41.25 11.3667 32.6333 2.75 22 2.75ZM16.5862 10.8167C14.9765 11.704 14.3495 11.869 13.8618 12.3897C13.3797 12.9103 12.6463 15.3175 12.3218 15.5283C11.9973 15.7392 9.6415 15.8107 9.6415 15.8107C9.6415 15.8107 13.5795 18.8797 14.872 19.1693C16.1663 19.459 19.327 18.7843 19.9503 18.909C20.5773 19.0373 23.8297 21.9707 24.211 22.7113C24.5923 23.452 24.5153 25.916 24.1413 26.2753C23.7673 26.6347 21.9725 28.2737 21.5875 28.8237C21.2025 29.3737 18.1152 36.3 17.7485 36.3037C17.3818 36.3037 16.6118 35.2697 16.4102 34.749C16.2085 34.2283 15.6273 27.3937 15.3285 26.9335C15.0297 26.4752 13.2642 25.4302 12.9892 25.0525C12.7142 24.673 11.9772 22.5097 12.023 22.088C12.067 21.6663 12.925 20.2418 12.7087 19.8623C12.4942 19.4828 8.6625 17.9685 7.92367 17.699C7.18483 17.4332 6.1215 17.0903 6.1215 17.0903C8.19317 10.395 14.399 5.50733 21.7415 5.39367C21.7415 5.39367 21.9707 5.36067 22.0825 5.65033C22.2842 6.17467 22.5518 7.62667 22.2512 8.11617C21.989 8.53783 18.1995 9.93117 16.5898 10.8185L16.5862 10.8167ZM37.0168 25.9233C36.6318 25.2212 34.7765 21.615 34.0963 21.0027C33.6747 20.6213 30.063 19.3307 29.4213 19.0043C28.776 18.6798 27.115 17.1765 27.0985 16.7805C27.0802 16.3845 29.1427 14.5732 29.2068 13.9865C29.3095 13.0882 25.7565 10.6223 25.729 10.2208C25.7015 9.8175 25.9985 9.01083 26.2973 8.73583C27.0362 8.07583 32.1457 8.80917 32.8167 9.39583C36.4833 12.617 38.6247 16.9602 38.6247 21.9963C38.6247 23.419 38.2947 25.5017 38.1077 25.993C37.961 26.378 37.2955 26.4183 37.0168 25.9197V25.9233Z" fill="rgb(29, 161, 242)"/>
-             </svg>
-
-           <text className="can_reply" >
-           Everyone can reply
-             </text>  
- </div>
-              :
-
-            <div className="d-none">
-
-            </div>
-  
-  }
-               <div className="icon_with_tweet">
-            <div className="icon_group">
-            <svg width="25" height="25" viewBox="0 0 48 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M39.5 3.41667H8.5C6.02 3.41667 4 5.14208 4 7.26042V33.7396C4 35.8579 6.02 37.5833 8.5 37.5833H39.5C41.98 37.5833 44 35.8579 44 33.7396V7.26042C44 5.14208 41.98 3.41667 39.5 3.41667ZM8.5 5.97917H39.5C40.326 5.97917 41 6.55487 41 7.26042V23.7902L33.284 17.1995C33.004 16.9603 32.624 16.8237 32.224 16.8237H32.218C31.818 16.8237 31.432 16.9603 31.154 17.2063L22.52 24.6957L18.894 21.6104C18.614 21.3712 18.234 21.2346 17.834 21.2346C17.448 21.1833 17.044 21.3712 16.764 21.6224L7 30.1384V7.26042C7 6.55487 7.674 5.97917 8.5 5.97917ZM7.012 33.7908L17.848 24.3369L30.412 35.0208H8.5C7.696 35.0208 7.046 34.4708 7.012 33.7908ZM39.5 35.0208H34.66L24.646 26.5014L32.23 19.9243L41 27.4136V33.7396C41 34.4451 40.326 35.0208 39.5 35.0208Z" fill="rgb(29, 161, 242)"/>
-            <path d="M17.736 16.8288C19.4393 16.8288 20.82 15.6494 20.82 14.1945C20.82 12.7397 19.4393 11.5603 17.736 11.5603C16.0328 11.5603 14.652 12.7397 14.652 14.1945C14.652 15.6494 16.0328 16.8288 17.736 16.8288Z" fill="rgb(29, 161, 242)"/>
-            </svg>
-
-              <svg width="25" height="25" viewBox="0 0 48 53" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M38 23.1875V19.4333H29.2V33.5667H32.6V29.15H36.6V25.3958H32.6V23.1875H38V23.1875ZM23.4 19.4333H26.8V33.5667H23.4V19.4333ZM16.2 22.9667C17 22.9667 18 23.4083 18.6 24.0708L21 21.8625C19.8 20.3167 18 19.4333 16.2 19.4333C12.6 19.4333 9.8 22.525 9.8 26.5C9.8 30.475 12.6 33.5667 16.2 33.5667C18.2 33.5667 19.8 32.6833 21 31.1375V25.6167H15.4V28.2667H17.8V29.5917C17.4 29.8125 16.8 30.0333 16.2 30.0333C14.4 30.0333 13 28.4875 13 26.5C13 24.7333 14.4 22.9667 16.2 22.9667V22.9667Z" fill="rgb(29, 161, 242)"/>
-              <path d="M41 4.46083H7C4.52 4.46083 2.5 6.68463 2.5 9.42296V43.6676C2.5 46.4015 4.52 48.6275 7 48.6275H41C43.48 48.6275 45.5 46.4015 45.5 43.6676V9.42296C45.5 6.68463 43.48 4.46083 41 4.46083V4.46083ZM42.5 43.6676C42.5 44.573 41.828 45.315 41 45.315H7C6.172 45.315 5.5 44.573 5.5 43.6676V9.42296C5.5 8.51313 6.172 7.77333 7 7.77333H41C41.828 7.77333 42.5 8.51313 42.5 9.42296V43.6676Z" fill="rgb(29, 161, 242)"/>
-              </svg>
-              <svg width="25" height="25" viewBox="0 0 50 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M42.1292 18.32H39.35C39.3812 18.14 39.4083 17.956 39.4083 17.766V13.14C39.4083 11.18 37.7479 9.586 35.7042 9.586H7.29167V6.716C7.29167 5.888 6.59167 5.216 5.72917 5.216C4.86667 5.216 4.16667 5.888 4.16667 6.716V41.66C4.16667 42.49 4.86667 43.16 5.72917 43.16C6.59167 43.16 7.29167 42.49 7.29167 41.66V38.792H29.2833C31.325 38.792 32.9875 37.198 32.9875 35.238V30.612C32.9875 30.422 32.9583 30.238 32.9292 30.056H42.1312C44.1729 30.056 45.8354 28.46 45.8354 26.5V21.88C45.8354 19.914 44.175 18.32 42.1312 18.32H42.1292ZM35.7083 12.586C36.025 12.586 36.2854 12.834 36.2854 13.14V17.76C36.2854 18.068 36.025 18.32 35.7062 18.32H7.29167V12.58H35.7083V12.586ZM29.8604 30.614V35.238C29.8604 35.544 29.6 35.792 29.2812 35.792H7.29167V30.056H29.2833C29.6021 30.056 29.8604 30.308 29.8604 30.616V30.614ZM42.7083 26.5C42.7083 26.806 42.4479 27.054 42.1292 27.054H7.29167V21.32H42.1292C42.4479 21.32 42.7083 21.568 42.7083 21.874V26.5Z" fill="rgb(29, 161, 242)"/>
-              </svg>
-              <svg width="25" height="25" viewBox="0 0 51 46" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M25.5 43.6042C12.903 43.6042 2.65625 34.362 2.65625 23C2.65625 11.638 12.903 2.39584 25.5 2.39584C38.097 2.39584 48.3438 11.638 48.3438 23C48.3438 34.362 38.097 43.6042 25.5 43.6042ZM25.5 5.27084C14.6625 5.27084 5.84375 13.225 5.84375 23C5.84375 32.775 14.6625 40.7292 25.5 40.7292C36.3375 40.7292 45.1562 32.775 45.1562 23C45.1562 13.225 36.3375 5.27084 25.5 5.27084Z" fill="rgb(29, 161, 242)"/>
-              <path d="M25.5 32.8038C21.4795 32.8038 17.7799 30.9829 15.606 27.9278C15.13 27.2608 15.3446 26.3753 16.0863 25.944C16.8258 25.5109 17.8118 25.7064 18.2878 26.3772C19.8751 28.6044 22.5718 29.9326 25.5021 29.9326C28.4325 29.9326 31.1291 28.6044 32.7186 26.3791C33.1946 25.7083 34.1806 25.5166 34.9201 25.9479C35.6639 26.3772 35.8764 27.2665 35.4004 27.9335C33.2223 30.9887 29.5226 32.8114 25.5021 32.8114L25.5 32.8038Z" fill="rgb(29, 161, 242)"/>
-              <path d="M31.3182 20.9607C33.0528 20.9607 34.459 19.6924 34.459 18.1278C34.459 16.5633 33.0528 15.295 31.3182 15.295C29.5837 15.295 28.1775 16.5633 28.1775 18.1278C28.1775 19.6924 29.5837 20.9607 31.3182 20.9607Z" fill="rgb(29, 161, 242)"/>
-              <path d="M19.6818 20.9607C21.4163 20.9607 22.8225 19.6924 22.8225 18.1278C22.8225 16.5633 21.4163 15.295 19.6818 15.295C17.9472 15.295 16.541 16.5633 16.541 18.1278C16.541 19.6924 17.9472 20.9607 19.6818 20.9607Z" fill="rgb(29, 161, 242)"/>
-              </svg>
-              <svg width="25" height="25" viewBox="0 0 55 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <g clip-path="url(#clip0)">
-              <path d="M-86.8542 37.5C-87.0833 37.2917 -87.0833 37.2917 -87.0833 37.0833C-86.8542 37.0833 -86.8542 37.2917 -86.8542 37.5ZM41.25 4.58335H38.2708V3.95835C38.2708 3.12502 37.5833 2.29169 36.4375 2.29169C35.5208 2.29169 34.6042 2.91669 34.6042 3.95835V4.58335H17.6458V3.95835C17.6458 3.12502 16.9583 2.29169 15.8125 2.29169C14.8958 2.29169 13.9792 2.91669 13.9792 3.95835V4.58335H11C7.79166 4.58335 5.27082 6.87502 5.27082 9.79169V37.0833C5.27082 40 7.79166 42.2917 11 42.2917H17.6458C18.5625 42.2917 19.4792 41.6667 19.4792 40.625C19.4792 39.7917 18.7917 38.9584 17.6458 38.9584H11C9.62499 38.9584 8.70832 37.9167 8.70832 36.875V16.4584C8.70832 15.8334 9.62499 15 11 15H41.25C42.625 15 43.5417 15.8334 43.5417 16.4584V20.2084C43.5417 21.0417 44.2292 21.875 45.375 21.875C46.2917 21.875 47.2083 21.25 47.2083 20.2084V9.79169C46.9792 6.87502 44.4583 4.58335 41.25 4.58335V4.58335ZM43.5417 12.2917C42.8542 12.0834 41.9375 11.875 41.25 11.875H11C10.0833 11.875 9.39582 12.0834 8.70832 12.2917V9.79169C8.70832 8.54169 9.85416 7.70835 11 7.70835H13.9792V8.75002C13.9792 9.58335 14.6667 10.4167 15.8125 10.4167C16.7292 10.4167 17.6458 9.79169 17.6458 8.75002V7.70835H34.8333V8.75002C34.8333 9.58335 35.5208 10.4167 36.6667 10.4167C37.5833 10.4167 38.5 9.79169 38.5 8.75002V7.70835H41.25C42.625 7.70835 43.5417 8.75002 43.5417 9.79169V12.2917Z" fill="rgb(29, 161, 242)"/>
-              <path d="M35.5208 21.6667C27.7292 21.6667 21.3125 27.5 21.3125 34.5834C21.3125 41.6667 27.7292 47.5 35.5208 47.5C43.3125 47.5 49.7292 41.6667 49.7292 34.5834C49.7292 27.5 43.3125 21.6667 35.5208 21.6667V21.6667ZM35.5208 44.5834C29.5625 44.5834 24.75 40.2084 24.75 34.7917C24.75 29.375 29.5625 25 35.5208 25C41.4792 25 46.2917 29.375 46.2917 34.7917C46.2917 40 41.4792 44.5834 35.5208 44.5834Z" fill="rgb(29, 161, 242)"/>
-              <path d="M43.3125 38.9584C43.0833 39.375 42.3958 39.7917 41.9375 39.7917C41.7083 39.7917 41.25 39.7917 41.0208 39.5834L33.9167 35.4167V29.1667C33.9167 28.3334 34.6042 27.5 35.75 27.5C36.6667 27.5 37.5833 28.125 37.5833 29.1667V33.75L43.0833 36.875C43.5417 37.2917 43.7708 38.125 43.3125 38.9584V38.9584Z" fill="rgb(29, 161, 242)"/>
-              </g>
-              <defs>
-              <clipPath id="clip0">
-              <rect width="55" height="50" fill="rgb(29, 161, 242)"/>
-              </clipPath>
-              </defs>
-              </svg>
-
-
-
-
-            </div>
-            <div className="wh_tweet">
-             <text>
-             Tweet
-               </text>
-            </div>
-               </div> 
-           </div>
-          </div>
-         
+          <div   className="header quote">
+          Quote Tweets
         </div>
-       {/*  <div className="whats_happening">
-          Tweets
-        </div> */}
-       
-          {
-            DATA.map((tweet)=>{
+        <div className="filter">
+          <div onClick={()=>setCat("top")} className={ cat=="top"?"filter_item_active":"filter_item"}>
+            Top
+          </div>
+          <div onClick={()=>setCat("latest")} className={cat=="latest"?"filter_item_active":"filter_item"}>
+            Latest
+          </div>
+          <div onClick={()=>setCat("photos")} className={cat=="photos"?"filter_item_active":"filter_item"}>
+            Photos
+          </div>
+          <div onClick={()=>setCat("videos")} className={cat=="videos"?"filter_item_active":"filter_item"}>
+            Videos
+          </div>
+        </div>
+          
+
+          <div>
+
+          </div>
+      
+   
+        </div>
+
+        <div>
+        
+        { 
+            dat.map((tweet)=>{
               
 
              
               return(
                 <>
 
-<div onClick={()=>{ setTweet(tweet)}} className="tweet_box">
+<div  className="tweet_box">
 { tweet.retweeted_by ? 
                 <div className="tweet_lower">
                   <div className="left_space retweet">
@@ -242,6 +217,60 @@ function MiddleColumn() {
                 </div>
 
 
+                <div className="main_tweet">
+                <div className="opened_tweet_quote">
+    <div className="opened_tweet_top_row">
+     <div className="opened_tweet_avi_and_username_quote">
+       <div>
+              <img src={'https://pbs.twimg.com/profile_images/1258864613585813505/EkLbcHbk_400x400.jpg'} className="tweet_avi_quote" alt=""/>
+      </div>
+     <div className="profile_name_1">
+     <div className="namespace_quote">
+                   <div className="namespace_name">
+                 {user.name}
+               </div>
+               <div className="namespace_username">
+                 @{user.username} &#183; 21h
+               </div>
+              </div>
+          </div>
+     
+     </div>
+     <div>
+     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                 <path d="M5 14C6.10457 14 7 13.1046 7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14Z" fill="#BBBBBB"/>
+                 <path d="M12 14C13.1046 14 14 13.1046 14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14Z" fill="#BBBBBB"/>
+                 <path d="M19 14C20.1046 14 21 13.1046 21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14Z" fill="#BBBBBB"/>
+               </svg>
+     </div>
+    </div>
+    <div className="opened_tweet_text_quote">
+      {tweett.text}
+    </div>
+   
+    {
+                    images.length > 0 ?
+                    <div className="opened_tweet_images">
+                    <ImageTweets  images={images} num={images.length} />
+                    </div>
+                    : <></>}
+ 
+    
+    
+    
+    
+    
+    
+    
+    
+   
+  
+  </div>
+
+                 
+                </div>
+
+
 
 
 
@@ -300,7 +329,10 @@ function MiddleColumn() {
               )
             })
           }
+
         </div>
+
+
         </div>
        
     
@@ -310,4 +342,4 @@ function MiddleColumn() {
   );
 }
 
-export default MiddleColumn;
+export default QuotedRepliesComponents;

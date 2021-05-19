@@ -1,3 +1,11 @@
+
+.main_tweet{
+    border:1px solid $color-grey-dark;
+    margin-left:12.5% ;
+    margin-bottom: 10px;
+    border-radius:10px ;
+    height: auto;
+}
 .tweet_box{
     border:1px solid rgb(56, 68, 77);
     padding: 5px 15px 5px 5px;
@@ -15,6 +23,9 @@
     padding: 0px 0px 5px 0px;
     min-height: 0px;
     margin-bottom: 5px;
+    @include respond(tablet) { 
+        font-size: 15px;
+    }
     
 
    
@@ -32,6 +43,9 @@
     display: flex;
     justify-content: space-between;
     padding-right: 70px;
+    @include respond(tablet) {
+     padding-right: 0px;
+    }
 }
 
 .tweet_images{
@@ -145,15 +159,21 @@
     justify-content: space-between;
 }
 .tweet_lower{
-   // border: 1px solid white;
+    //border: 1px solid white;
     display: flex;
     justify-content: row;
     height: auto;
+    @include respond(tablet) {
+     
+}
 }
 .t_right{
     width: 90%;
     display: flex;
     flex-direction: column;
+    @include respond(tablet) {
+        padding-left: 5px;
+     }
 }
 .upper_right{
    // border: 1px solid red;
@@ -168,21 +188,54 @@
 }
 .right_text{
     width: 90%;
-   // border: 1px solid red;
+   //border: 1px solid red;
+   @include respond(mobileM) {
+     display: flex;
+     justify-content: space-between;
+}
 }
 
 .namespace{
     display: flex;
     flex-direction: row;
-    //border:1px solid yellow;
+   // border:1px solid yellow;
     
    width: 50%;
     justify-content: flex-start;
     padding-right: 15px;
     height: 30px;
 
+ 
+
+    &_quote{
+        display: flex;
+    flex-direction: row;
+    //border:1px solid yellow;
+    
+   width: 100%;
+    justify-content: flex-start;
+    
+    height: 30px;
+
+    @include respond(mobileL) {
+        width: 250px;
+       
+}
+    }
+
     &_username{
         color:$color-grey-light;
+    }
+    @include respond(tablet) {
+        width: 60%;
+       
+}
+
+    @include respond(mobileL) {
+        width: 80%;
+}
+    @include respond(mobileM) {
+            width: 70%;
     }
 }
 .btn3{
@@ -192,6 +245,20 @@
     justify-content: flex-end;
     color: $color-grey-light;
     height: 30px;
+
+
+    @include respond(tablet) {
+        width: 20%;
+       
+}
+    @include respond(mobileL) {
+        width: 20%;
+        
+}
+
+    @include respond(mobileM) {
+        width: 30%;
+}
     
 }
 
@@ -228,4 +295,10 @@
     border-radius: 100px;
     height: 50px;
     width: 50px;
+
+    &_quote{
+        border-radius: 100px;
+        height: 25px;
+        width: 25px;
+    }
 }

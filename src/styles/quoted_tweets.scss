@@ -1,0 +1,87 @@
+.filter{
+    background-color: #15202B;
+    position: fixed;
+    width: 43.5% !important;
+    top:20%;
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ height: 65px;
+ padding: 0px;
+ border-bottom:1px solid $color-grey-light;
+ border-top:1px solid $color-grey-dark;
+ //border:1px solid red;
+ @include respond(laptop4K) { 
+    width: 36.6% !important;
+    top:5%;
+  }
+  @include respond(laptopL) { 
+    width: 43.5% !important;
+    top:5%;
+  }
+  @include respond(laptop) { 
+    width: 52.2% !important;
+  }
+  @include respond(tablet) { 
+    width: 85% !important;
+  }
+
+  @include respond(mobileL) { 
+    width: 100% !important;
+    top:4.5vh;
+  }
+ &_item{
+    
+     width: 25%;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     color: $color-grey-light;
+     font-weight: bold;
+     height: 100%;
+     &_active{
+        width: 25%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: $color-grey-light;
+        font-weight: bold;
+        height: 100%;
+        //background-color: rgba(29, 161, 242,0.05);
+        color:  rgb(29, 161, 242);
+        border-bottom:3px solid  rgb(29, 161, 242);
+       height: 100%;
+        cursor: pointer;
+        &:hover{
+            background-color: rgba(29, 161, 242,0.05);
+        }
+     }
+    
+
+     &:hover{
+         background-color: rgba(29, 161, 242,0.05);
+         color:  rgb(29, 161, 242);
+        // border-bottom:3px solid  rgb(29, 161, 242);
+         //height: 100%;
+         cursor: pointer;
+     }
+ }
+}
+
+.quote{
+    border-bottom: 0px !important;
+    //position: ;
+  
+    //border:1px solid red;
+
+   
+
+
+
+}
+
+.head{
+    position: fixed;
+    //border:1px solid green;
+   // width: 100%;
+}
